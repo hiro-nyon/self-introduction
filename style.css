@@ -1,43 +1,135 @@
+/* --- General Setup & Variables --- */
+:root {
+    --primary-color: #007bff;
+    --dark-color: #343a40;
+    --light-color: #f8f9fa;
+    --header-bg: #212529;
+    --white-color: #ffffff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: sans-serif;
+    font-family: 'Lato', sans-serif;
     line-height: 1.6;
     margin: 0;
-    padding: 0;
-    background: #f4f4f4;
-    color: #333;
-    /* --- Flexbox layout for sticky footer --- */
+    background: var(--light-color);
+    color: var(--dark-color);
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
+/* --- Header & Navigation --- */
 header {
-    background: #333;
-    color: #fff;
-    padding: 1rem 0;
+    background: var(--header-bg);
+    color: var(--white-color);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.lang-switcher button {
+    background: transparent;
+    color: var(--white-color);
+    border: 1px solid var(--white-color);
+    padding: 0.3rem 0.6rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.lang-switcher button:hover {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.main-nav {
+    max-width: 1100px;
+    margin: 1rem auto 0;
+    padding-top: 0.5rem;
+    border-top: 1px solid #495057;
     text-align: center;
 }
 
+.main-nav a {
+    color: var(--white-color);
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 1rem;
+    font-weight: 700;
+    transition: color 0.3s;
+}
+
+.main-nav a:hover {
+    color: var(--primary-color);
+}
+
+/* --- Main Content & Sections --- */
 main {
-    padding: 1rem;
-    max-width: 800px;
+    padding: 2rem;
+    max-width: 900px;
     margin: 0 auto;
-    width: 100%; /* Ensure main takes up full width before centering */
-    /* --- Make main content grow to push footer down --- */
+    width: 100%;
     flex-grow: 1;
 }
 
 section {
-    background: #fff;
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 5px;
+    background: var(--white-color);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px var(--shadow-color);
+    border-left: 5px solid var(--primary-color);
 }
 
+section h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--light-color);
+    padding-bottom: 0.5rem;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+li {
+    margin-bottom: 0.5rem;
+}
+
+/* --- Footer --- */
 footer {
-    text-align: center;
-    padding: 1rem 0;
-    background: #333;
-    color: #fff;
-    /* --- Removed position:fixed to solve overlap --- */
+    background: var(--header-bg);
+    color: var(--white-color);
+    padding: 1.5rem 2rem;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: right;
+}
+
+footer p {
+    margin: 0;
 }

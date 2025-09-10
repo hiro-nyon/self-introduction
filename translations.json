@@ -13,8 +13,20 @@
     "educationContent": "ここに学歴を記述します。",
     "skillsTitle": "スキル",
     "skillsContent": "ここにスキルを記述します。",
-    "contactTitle": "コンタクト",
-    "contactContent": "Email: your.email@example.com"
+    "contactTitle": "連絡先",
+    "contactContent": "Email: your.email@example.com",
+    "navProfile": "プロフィール",
+    "navResearch": "研究",
+    "navPublications": "業績",
+    "navAwards": "受賞歴",
+    "navEducation": "学歴",
+    "navSkills": "スキル",
+    "navContact": "連絡先",
+    "awardsTitle": "受賞歴",
+    "award1": "受賞1...",
+    "navTeaching": "教育活動",
+    "teachingTitle": "教育・指導経験",
+    "teaching1": "202X年 - 〇〇 (ティーチングアシスタント)"
   },
   "en": {
     "pageTitle": "Hironobu Kasuga's Portfolio",
@@ -31,6 +43,18 @@
     "skillsTitle": "Skills",
     "skillsContent": "Describe your skills here.",
     "contactTitle": "Contact",
-    "contactContent": "Email: your.email@example.com"
+    "contactContent": "Email: your.email@example.com",
+    "navProfile": "Profile",
+    "navResearch": "Research",
+    "navPublications": "Publications",
+    "navAwards": "Awards",
+    "navEducation": "Education",
+    "navSkills": "Skills",
+    "navContact": "Contact",
+    "awardsTitle": "Awards",
+    "award1": "Award 1...",
+    "navTeaching": "Teaching",
+    "teachingTitle": "Teaching & Mentoring",
+    "teaching1": "202X - Teaching Assistant, [Course Name]"
   }
 }

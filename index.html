@@ -5,14 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n-key="pageTitle">Hironobu Kasuga's Portfolio</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <header>
-        <h1 data-i18n-key="headerName">Hironobu Kasuga</h1>
-        <nav>
-            <button id="lang-ja">日本語</button>
-            <button id="lang-en">English</button>
+        <div class="header-content">
+            <h1 data-i18n-key="headerName">Hironobu Kasuga</h1>
+            <nav class="lang-switcher">
+                <button id="lang-ja">日本語</button>
+                <button id="lang-en">English</button>
+            </nav>
+        </div>
+        <nav class="main-nav">
+            <a href="#profile" data-i18n-key="navProfile">Profile</a>
+            <a href="#education" data-i18n-key="navEducation">Education</a>
+            <a href="#research" data-i18n-key="navResearch">Research</a>
+            <a href="#publications" data-i18n-key="navPublications">Publications</a>
+            <a href="#awards" data-i18n-key="navAwards">Awards</a>
+            <a href="#teaching" data-i18n-key="navTeaching">Teaching</a>
+            <a href="#skills" data-i18n-key="navSkills">Skills</a>
+            <a href="#contact" data-i18n-key="navContact">Contact</a>
         </nav>
     </header>
 
@@ -20,6 +35,11 @@
         <section id="profile">
             <h2 data-i18n-key="profileTitle">Profile</h2>
             <p data-i18n-key="profileContent">I am a graduate student at Keio University, Graduate School of Media and Governance.</p>
+        </section>
+
+        <section id="education">
+            <h2 data-i18n-key="educationTitle">Education</h2>
+            <p data-i18n-key="educationContent">Describe your education history here.</p>
         </section>
 
         <section id="research">
@@ -35,9 +55,18 @@
             </ul>
         </section>
 
-        <section id="education">
-            <h2 data-i18n-key="educationTitle">Education</h2>
-            <p data-i18n-key="educationContent">Describe your education history here.</p>
+        <section id="awards">
+            <h2 data-i18n-key="awardsTitle">Awards</h2>
+            <ul>
+                <li data-i18n-key="award1">Award 1...</li>
+            </ul>
+        </section>
+
+        <section id="teaching">
+            <h2 data-i18n-key="teachingTitle">Teaching & Mentoring</h2>
+            <ul>
+                <li data-i18n-key="teaching1">202X - Teaching Assistant, [Course Name]</li>
+            </ul>
         </section>
 
         <section id="skills">
@@ -52,7 +81,9 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 Hironobu Kasuga</p>
+        <div class="footer-content">
+            <p>&copy; 2025 Hironobu Kasuga</p>
+        </div>
     </footer>
 
     <script src="script.js"></script>
