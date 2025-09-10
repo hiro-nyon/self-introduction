@@ -1,32 +1,60 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>自己紹介</title>
+    <title data-i18n-key="pageTitle">Hironobu Kasuga's Portfolio</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
-        <h1>私の自己紹介</h1>
+        <h1 data-i18n-key="headerName">Hironobu Kasuga</h1>
+        <nav>
+            <button id="lang-ja">日本語</button>
+            <button id="lang-en">English</button>
+        </nav>
     </header>
+
     <main>
-        <section>
-            <h2>基本情報</h2>
-            <p>ここにあなたの基本情報を書きます。</p>
+        <section id="profile">
+            <h2 data-i18n-key="profileTitle">Profile</h2>
+            <p data-i18n-key="profileContent">I am a graduate student at Keio University, Graduate School of Media and Governance.</p>
         </section>
-        <section>
-            <h2>趣味</h2>
-            <p>ここにあなたの趣味について書きます。</p>
+
+        <section id="research">
+            <h2 data-i18n-key="researchTitle">Research</h2>
+            <p data-i18n-key="researchContent">Describe your research interests here.</p>
         </section>
-        <section>
-            <h2>スキル</h2>
-            <p>ここにあなたのスキルについて書きます。</p>
+
+        <section id="publications">
+            <h2 data-i18n-key="publicationsTitle">Publications</h2>
+            <ul>
+                <li data-i18n-key="publication1">Presentation 1...</li>
+                <li data-i18n-key="publication2">Paper 1...</li>
+            </ul>
+        </section>
+
+        <section id="education">
+            <h2 data-i18n-key="educationTitle">Education</h2>
+            <p data-i18n-key="educationContent">Describe your education history here.</p>
+        </section>
+
+        <section id="skills">
+            <h2 data-i18n-key="skillsTitle">Skills</h2>
+            <p data-i18n-key="skillsContent">Describe your skills here.</p>
+        </section>
+
+        <section id="contact">
+            <h2 data-i18n-key="contactTitle">Contact</h2>
+            <p data-i18n-key="contactContent">Email: your.email@example.com</p>
         </section>
     </main>
+
     <footer>
-        <p>&copy; 2025 あなたの名前</p>
+        <p>&copy; 2025 Hironobu Kasuga</p>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>

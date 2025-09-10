@@ -1,0 +1,36 @@
+{
+  "ja": {
+    "pageTitle": "春日 啓誠のポートフォリオ",
+    "headerName": "春日 啓誠",
+    "profileTitle": "プロフィール",
+    "profileContent": "慶應義塾大学大学院 政策・メディア研究科に所属しています。",
+    "researchTitle": "研究",
+    "researchContent": "ここに研究内容の説明を記述します。",
+    "publicationsTitle": "業績",
+    "publication1": "発表1...",
+    "publication2": "論文1...",
+    "educationTitle": "学歴",
+    "educationContent": "ここに学歴を記述します。",
+    "skillsTitle": "スキル",
+    "skillsContent": "ここにスキルを記述します。",
+    "contactTitle": "コンタクト",
+    "contactContent": "Email: your.email@example.com"
+  },
+  "en": {
+    "pageTitle": "Hironobu Kasuga's Portfolio",
+    "headerName": "Hironobu Kasuga",
+    "profileTitle": "Profile",
+    "profileContent": "I am a graduate student at Keio University, Graduate School of Media and Governance.",
+    "researchTitle": "Research",
+    "researchContent": "Describe your research interests here.",
+    "publicationsTitle": "Publications",
+    "publication1": "Presentation 1...",
+    "publication2": "Paper 1...",
+    "educationTitle": "Education",
+    "educationContent": "Describe your education history here.",
+    "skillsTitle": "Skills",
+    "skillsContent": "Describe your skills here.",
+    "contactTitle": "Contact",
+    "contactContent": "Email: your.email@example.com"
+  }
+}
