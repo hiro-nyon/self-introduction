@@ -39,6 +39,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- View Mode Toggle ---
     const viewModeToggle = document.getElementById('view-mode-toggle');
+    let selectedFeature = null; // Move this declaration here for global access
+
     viewModeToggle.addEventListener('click', (e) => {
         e.preventDefault();
         document.body.classList.toggle('map-view-active');
@@ -51,6 +53,34 @@ document.addEventListener('DOMContentLoaded', () => {
         viewModeToggle.dataset.i18nKey = newKey;
         if (translations[currentLang] && translations[currentLang][newKey]) {
             viewModeToggle.textContent = translations[currentLang][newKey];
+        }
+
+        // Clear building selection and InfoBox when switching to UI view
+        if (!isMapView) {
+            // Clear selected building highlight
+            if (selectedFeature && window.shibuyaTileset) {
+                selectedFeature.color = Cesium.Color.WHITE;
+                selectedFeature = null;
+            }
+            
+            // Clear Cesium InfoBox and selection
+            if (typeof viewer !== 'undefined') {
+                viewer.selectedEntity = undefined;
+                
+                // Reset all building colors to default
+                if (window.shibuyaTileset) {
+                    window.shibuyaTileset.style = new Cesium.Cesium3DTileStyle({
+                        color: 'color("white")',
+                        show: true
+                    });
+                }
+            }
+            
+            // Hide clicked coordinates panel
+            const clickedCoordsPanel = document.getElementById('clicked-coords-panel');
+            if (clickedCoordsPanel) {
+                clickedCoordsPanel.classList.add('hidden');
+            }
         }
     });
 
@@ -195,7 +225,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 8. Enhanced Click Handler for PLATEAU Buildings and Coordinates
     const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
-    let selectedFeature = null;
 
     // Function to generate building info HTML
     function generateBuildingInfoHTML(feature) {
