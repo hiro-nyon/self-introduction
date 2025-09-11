@@ -1,10 +1,10 @@
 /* --- General Setup & Variables --- */
 :root {
-    --primary-color: #007bff;
+    --white-color: #007bff;
+    --white-color: #ffffff;
     --dark-color: #343a40;
     --light-color: #f8f9fa;
     --header-bg-solid: #212529; /* Renamed for clarity */
-    --white-color: #ffffff;
     --shadow-color: rgba(0, 0, 0, 0.1);
 
     /* Glassmorphism Variables */
@@ -84,9 +84,13 @@ header h1 {
     margin-right: 10px;
 }
 
+#rotation-toggle {
+    margin-right: 10px;
+}
+
 .lang-switcher button:hover {
-    background-color: var(--primary-color);
-    border-color: var(--primary-color);
+    background-color: var(--white-color);
+    border-color: var(--white-color);
 }
 
 .main-nav {
@@ -107,7 +111,7 @@ header h1 {
 }
 
 .main-nav a:hover {
-    color: var(--primary-color);
+    color: var(--white-color);
 }
 
 /* --- Main Content & Sections (Glassmorphism) --- */
@@ -193,4 +197,106 @@ footer p {
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
+}
+
+.map-view-active #cesium-status-panel {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* --- Cesium Status Panel --- */
+#cesium-status-panel {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background: var(--section-bg);
+    color: var(--dark-color);
+    padding: 20px;
+    border-radius: 12px;
+    font-family: 'Lato', sans-serif;
+    font-size: 0.85rem;
+    z-index: 1001;
+    backdrop-filter: var(--blur-effect);
+    -webkit-backdrop-filter: var(--blur-effect);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 4px 8px var(--shadow-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease;
+    transform: translateY(10px);
+    min-width: 200px;
+}
+
+.status-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 15px;
+    align-items: center;
+}
+
+.status-grid span:nth-child(odd) {
+    font-weight: 600;
+    color: var(--white-color);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status-grid span:nth-child(even) {
+    color: var(--dark-color);
+    font-weight: 500;
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+.status-ok {
+    color: #28a745;
+    font-weight: 600;
+}
+
+#clicked-coords-panel {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.8rem;
+}
+
+#clicked-coords-panel span {
+    color: var(--dark-color);
+    font-family: 'Monaco', 'Menlo', 'Consolas', monospace;
+}
+
+.hidden {
+    display: none;
+}
+
+/* --- Cesium InfoBox Styling --- */
+.cesium-infoBox {
+    background: var(--section-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 8px var(--shadow-color) !important;
+    backdrop-filter: var(--blur-effect) !important;
+    -webkit-backdrop-filter: var(--blur-effect) !important;
+}
+
+.cesium-infoBox-title {
+    background: var(--white-color) !important;
+    color: var(--white-color) !important;
+    border-radius: 12px 12px 0 0 !important;
+    font-family: 'Lato', sans-serif !important;
+    font-weight: 600 !important;
+}
+
+.cesium-infoBox-bodyless .cesium-infoBox-title {
+    border-radius: 12px !important;
+}
+
+.cesium-infoBox iframe {
+    background: transparent !important;
+    border-radius: 0 0 12px 12px !important;
+}
+
+.cesium-selection-wrapper {
+    opacity: 0.8 !important;
 }

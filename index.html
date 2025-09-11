@@ -20,6 +20,7 @@
                 <h1 data-i18n-key="headerName">Hironobu Kasuga</h1>
                 <nav class="lang-switcher">
                     <button id="view-mode-toggle" data-i18n-key="nav3DView">3D View</button>
+                    <button id="rotation-toggle" data-i18n-key="navRotationToggle">回転停止</button>
                     <button id="lang-ja">日本語</button>
                     <button id="lang-en">English</button>
                 </nav>
@@ -115,5 +116,21 @@
     <script src="https://cesium.com/downloads/cesiumjs/releases/1.119/Build/Cesium/Cesium.js"></script>
     <script src="config.js"></script>
     <script src="script.js"></script>
+
+    <div id="cesium-status-panel">
+        <div class="status-grid">
+            <span>LAT:</span> <span id="status-lat">--.--</span>
+            <span>LON:</span> <span id="status-lon">--.--</span>
+            <span>ALT:</span> <span id="status-alt">---- m</span>
+            <span>HDG:</span> <span id="status-hdg">---°</span>
+            <span>PITCH:</span> <span id="status-pitch">--°</span>
+            <span>STATUS:</span> <span id="status-connection" class="status-ok">CONNECTED</span>
+        </div>
+        <div id="clicked-coords-panel" class="hidden">
+             Clicked: <span id="clicked-coords-value">---</span>
+        </div>
+    </div>
+
+
 </body>
 </html>

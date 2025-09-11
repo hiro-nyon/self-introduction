@@ -36,7 +36,9 @@
     "teachingTitle": "教育・指導経験",
     "teaching1": "202X年 - 〇〇 (ティーチングアシスタント)",
     "nav3DView": "3D表示",
-    "navUIView": "UI表示"
+    "navUIView": "UI表示",
+    "navRotationToggle": "回転停止",
+    "navRotationStart": "回転開始"
   },
   "en": {
     "pageTitle": "Hironobu Kasuga's Portfolio",
@@ -75,6 +77,8 @@
     "teachingTitle": "Teaching & Mentoring",
     "teaching1": "202X - Teaching Assistant, [Course Name]",
     "nav3DView": "3D View",
-    "navUIView": "UI View"
+    "navUIView": "UI View",
+    "navRotationToggle": "Stop Rotation",
+    "navRotationStart": "Start Rotation"
   }
 }
