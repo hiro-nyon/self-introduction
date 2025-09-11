@@ -19,16 +19,26 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Debug secrets (check if token exists)
+        run: |
+          if [ -z "${{ secrets.CESIUM_ION_TOKEN }}" ]; then
+            echo "❌ CESIUM_ION_TOKEN is empty or not set"
+            exit 1
+          else
+            echo "✅ CESIUM_ION_TOKEN is available (length: ${#CESIUM_ION_TOKEN})"
+          fi
+        env:
+          CESIUM_ION_TOKEN: ${{ secrets.CESIUM_ION_TOKEN }}
+
       - name: Create config.js for deployment
         run: |
           echo "const CESIUM_ION_TOKEN = '${{ secrets.CESIUM_ION_TOKEN }}';" > config.js
+          echo "✅ config.js created successfully"
+          ls -la config.js
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
