@@ -98,6 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then((tileset) => {
         viewer.scene.primitives.add(tileset);
 
+        // Enable feature picking for individual building selection
+        tileset.style = new Cesium.Cesium3DTileStyle({
+            color: 'color("white")',
+            show: true
+        });
+
+        // Store tileset reference globally for interaction
+        window.shibuyaTileset = tileset;
+
         // Tileset loaded - camera is already positioned at Shibuya
         console.log('Shibuya tileset loaded successfully');
 
@@ -184,22 +193,193 @@ document.addEventListener('DOMContentLoaded', () => {
         frameCount++;
     });
 
-    // 8. Simple Click Handler for Coordinates
+    // 8. Enhanced Click Handler for PLATEAU Buildings and Coordinates
     const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
-    handler.setInputAction((movement) => {
-        if (!document.body.classList.contains('map-view-active')) {
-            return; // Only active in map view
+    let selectedFeature = null;
+
+    // Function to generate building info HTML
+    function generateBuildingInfoHTML(feature) {
+        const currentLang = document.documentElement.lang || 'en';
+        const isJapanese = currentLang === 'ja';
+        
+        // Extract building properties
+        const properties = feature.getPropertyIds();
+        let buildingId = feature.getProperty('gml:id') || feature.getProperty('fid') || 'Unknown';
+        let buildingHeight = feature.getProperty('bldg:measuredHeight') || feature.getProperty('height') || 'Unknown';
+        let buildingUsage = feature.getProperty('bldg:usage') || feature.getProperty('usage') || 'Unknown';
+        let buildingClass = feature.getProperty('bldg:class') || feature.getProperty('class') || 'Unknown';
+
+        // Generate HTML content
+        const title = isJapanese ? '建物情報' : 'Building Information';
+        const idLabel = isJapanese ? 'ID' : 'ID';
+        const heightLabel = isJapanese ? '高さ' : 'Height';
+        const usageLabel = isJapanese ? '用途' : 'Usage';
+        const classLabel = isJapanese ? '分類' : 'Class';
+        const propertiesLabel = isJapanese ? 'プロパティ' : 'Properties';
+
+        let html = `
+            <div style="font-family: 'Lato', sans-serif; max-width: 300px;">
+                <h3 style="margin: 0 0 15px 0; color: #007bff; font-size: 1.1rem;">${title}</h3>
+                <div style="margin-bottom: 10px;">
+                    <strong>${idLabel}:</strong> ${buildingId}
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <strong>${heightLabel}:</strong> ${buildingHeight}${typeof buildingHeight === 'number' ? 'm' : ''}
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <strong>${usageLabel}:</strong> ${buildingUsage}
+                </div>
+                <div style="margin-bottom: 10px;">
+                    <strong>${classLabel}:</strong> ${buildingClass}
+                </div>
+        `;
+
+        // Add available properties
+        if (properties && properties.length > 0) {
+            html += `<div style="margin-top: 15px; border-top: 1px solid #ddd; padding-top: 10px;">
+                        <strong>${propertiesLabel}:</strong><br>`;
+            properties.slice(0, 5).forEach(prop => {
+                const value = feature.getProperty(prop);
+                if (value !== undefined && value !== null && value !== '') {
+                    html += `<small>${prop}: ${value}</small><br>`;
+                }
+            });
+            html += '</div>';
         }
 
-        // Update clicked coordinates for ground clicks
-        const cartesian = viewer.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid);
-        if (cartesian) {
-            const cartographic = Cesium.Cartographic.fromCartesian(cartesian);
-            const longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(5);
-            const latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(5);
+        html += '</div>';
+        return html;
+    }
+
+    handler.setInputAction((movement) => {
+        // Reset previous selection
+        if (selectedFeature && window.shibuyaTileset) {
+            selectedFeature.color = Cesium.Color.WHITE;
+        }
+
+        // Try to pick a 3D feature first
+        const pickedFeature = viewer.scene.pick(movement.position);
+
+        if (Cesium.defined(pickedFeature) && Cesium.defined(pickedFeature.primitive) && 
+            pickedFeature.primitive instanceof Cesium.Cesium3DTileset) {
             
-            clickedCoordsValue.textContent = `Lat: ${latitudeString}, Lon: ${longitudeString}`;
-            clickedCoordsPanel.classList.remove('hidden');
+            // PLATEAU building feature selected
+            selectedFeature = pickedFeature;
+            
+            // Highlight the selected building
+            selectedFeature.color = Cesium.Color.YELLOW;
+            
+            // Update coordinates display
+            const cartesian = viewer.scene.pickPosition(movement.position);
+            if (cartesian) {
+                const cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+                const longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(5);
+                const latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(5);
+                
+                clickedCoordsValue.textContent = `Lat: ${latitudeString}, Lon: ${longitudeString}`;
+                clickedCoordsPanel.classList.remove('hidden');
+            }
+
+            // Generate and display building information
+            try {
+                const infoHTML = generateBuildingInfoHTML(selectedFeature);
+                viewer.selectedEntity = new Cesium.Entity({
+                    name: 'PLATEAU Building',
+                    description: infoHTML
+                });
+            } catch (error) {
+                console.warn('Could not generate building info:', error);
+                viewer.selectedEntity = new Cesium.Entity({
+                    name: 'PLATEAU Building',
+                    description: 'Building information available. Click to explore properties.'
+                });
+            }
+
+        } else {
+            // Ground or terrain clicked
+            if (document.body.classList.contains('map-view-active')) {
+                const cartesian = viewer.camera.pickEllipsoid(movement.position, viewer.scene.globe.ellipsoid);
+                if (cartesian) {
+                    const cartographic = Cesium.Cartographic.fromCartesian(cartesian);
+                    const longitudeString = Cesium.Math.toDegrees(cartographic.longitude).toFixed(5);
+                    const latitudeString = Cesium.Math.toDegrees(cartographic.latitude).toFixed(5);
+                    
+                    clickedCoordsValue.textContent = `Lat: ${latitudeString}, Lon: ${longitudeString}`;
+                    clickedCoordsPanel.classList.remove('hidden');
+                }
+            }
+            
+            // Clear building selection
+            selectedFeature = null;
+            viewer.selectedEntity = undefined;
         }
     }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
+
+    // Double-click to focus on selected building
+    handler.setInputAction((movement) => {
+        const pickedFeature = viewer.scene.pick(movement.position);
+        if (Cesium.defined(pickedFeature) && Cesium.defined(pickedFeature.primitive) && 
+            pickedFeature.primitive instanceof Cesium.Cesium3DTileset) {
+            
+            const cartesian = viewer.scene.pickPosition(movement.position);
+            if (cartesian) {
+                // Fly to the selected building
+                viewer.camera.flyTo({
+                    destination: cartesian,
+                    orientation: {
+                        heading: viewer.camera.heading,
+                        pitch: Cesium.Math.toRadians(-30),
+                        roll: 0.0
+                    },
+                    offset: new Cesium.HeadingPitchRange(0, Cesium.Math.toRadians(-30), 200)
+                });
+            }
+        }
+    }, Cesium.ScreenSpaceEventType.LEFT_DOUBLE_CLICK);
+
+    // 9. Enhanced Camera Controls
+    // Enable mouse wheel zoom
+    viewer.scene.screenSpaceCameraController.enableZoom = true;
+    viewer.scene.screenSpaceCameraController.enableRotate = true;
+    viewer.scene.screenSpaceCameraController.enableTranslate = true;
+    viewer.scene.screenSpaceCameraController.enableTilt = true;
+    viewer.scene.screenSpaceCameraController.enableLook = true;
+
+    // Set zoom limits
+    viewer.scene.screenSpaceCameraController.minimumZoomDistance = 50;
+    viewer.scene.screenSpaceCameraController.maximumZoomDistance = 5000;
+
+    // 10. Keyboard Shortcuts
+    document.addEventListener('keydown', (e) => {
+        if (!document.body.classList.contains('map-view-active')) return;
+
+        switch(e.key.toLowerCase()) {
+            case 'r':
+                // Toggle rotation
+                if (rotationToggle) rotationToggle.click();
+                break;
+            case 'h':
+                // Return to Shibuya home view
+                viewer.camera.flyTo({
+                    destination: Cesium.Cartesian3.fromDegrees(longitude, latitude, height),
+                    orientation: {
+                        heading: 0,
+                        pitch: pitch,
+                        roll: 0.0
+                    },
+                    duration: 2
+                });
+                break;
+            case 'c':
+                // Clear selection
+                selectedFeature = null;
+                viewer.selectedEntity = undefined;
+                if (window.shibuyaTileset) {
+                    window.shibuyaTileset.style = new Cesium.Cesium3DTileStyle({
+                        color: 'color("white")'
+                    });
+                }
+                break;
+        }
+    });
 });

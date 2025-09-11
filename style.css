@@ -1,6 +1,5 @@
 /* --- General Setup & Variables --- */
 :root {
-    --white-color: #007bff;
     --white-color: #ffffff;
     --dark-color: #343a40;
     --light-color: #f8f9fa;
@@ -149,14 +148,14 @@ section {
     border-radius: 12px; /* Slightly more rounded for a softer look */
     box-shadow: 0 4px 8px var(--shadow-color);
     border: 1px solid var(--border-color);
-    border-left: 5px solid var(--primary-color); /* Keep original accent */
+    border-left: 5px solid var(--white-color); /* Keep original accent */
     backdrop-filter: var(--blur-effect);
     -webkit-backdrop-filter: var(--blur-effect); /* Safari support */
 }
 
 section h2 {
     margin-top: 0;
-    color: var(--primary-color);
+    color: var(--white-color);
     border-bottom: 2px solid rgba(255, 255, 255, 0.2); /* Lighter border */
     padding-bottom: 0.5rem;
 }
@@ -199,10 +198,19 @@ footer p {
     transform: translateY(20px);
 }
 
+.map-view-active .ui-container {
+    pointer-events: none;
+}
+
+.map-view-active header {
+    pointer-events: auto;
+}
+
 .map-view-active #cesium-status-panel {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
+    pointer-events: auto;
 }
 
 /* --- Cesium Status Panel --- */
@@ -278,6 +286,13 @@ footer p {
     box-shadow: 0 4px 8px var(--shadow-color) !important;
     backdrop-filter: var(--blur-effect) !important;
     -webkit-backdrop-filter: var(--blur-effect) !important;
+    pointer-events: auto !important;
+    position: fixed !important;
+    top: 120px !important;
+    right: 20px !important;
+    max-width: 350px !important;
+    max-height: 400px !important;
+    z-index: 1003 !important;
 }
 
 .cesium-infoBox-title {
@@ -286,6 +301,8 @@ footer p {
     border-radius: 12px 12px 0 0 !important;
     font-family: 'Lato', sans-serif !important;
     font-weight: 600 !important;
+    padding: 8px 40px 8px 15px !important;
+    font-size: 1rem !important;
 }
 
 .cesium-infoBox-bodyless .cesium-infoBox-title {
@@ -295,8 +312,68 @@ footer p {
 .cesium-infoBox iframe {
     background: transparent !important;
     border-radius: 0 0 12px 12px !important;
+    border: none !important;
+}
+
+.cesium-infoBox-defaultTable {
+    font-family: 'Lato', sans-serif !important;
+    font-size: 0.9rem !important;
+}
+
+.cesium-infoBox-camera,
+.cesium-infoBox-close {
+    background: rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.5) !important;
+    border-radius: 4px !important;
+    color: var(--white-color) !important;
+    width: 26px !important;
+    height: 26px !important;
+    right: 8px !important;
+    top: 8px !important;
+    font-size: 14px !important;
+    font-weight: bold !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+}
+
+.cesium-infoBox-close::before {
+    content: "×" !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+}
+
+.cesium-infoBox-camera:hover,
+.cesium-infoBox-close:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border-color: rgba(255, 255, 255, 0.8) !important;
 }
 
 .cesium-selection-wrapper {
     opacity: 0.8 !important;
+}
+
+/* Ensure Cesium widgets are interactive in 3D view */
+.map-view-active .cesium-widget,
+.map-view-active .cesium-widget canvas {
+    pointer-events: auto !important;
+}
+
+/* Responsive InfoBox positioning */
+@media (max-width: 768px) {
+    .cesium-infoBox {
+        right: 10px !important;
+        left: 10px !important;
+        max-width: calc(100% - 20px) !important;
+        top: 80px !important;
+    }
+}
+
+@media (max-height: 600px) {
+    .cesium-infoBox {
+        max-height: 250px !important;
+        top: 80px !important;
+    }
 }
