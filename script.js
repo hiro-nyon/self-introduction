@@ -36,6 +36,23 @@ document.addEventListener('DOMContentLoaded', () => {
     langJaBtn.addEventListener('click', () => loadLanguage('ja'));
     langEnBtn.addEventListener('click', () => loadLanguage('en'));
 
+    // --- View Mode Toggle ---
+    const viewModeToggle = document.getElementById('view-mode-toggle');
+    viewModeToggle.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.classList.toggle('map-view-active');
+
+        // Update button text based on current state and language
+        const currentLang = document.documentElement.lang || 'en';
+        const isMapView = document.body.classList.contains('map-view-active');
+        const newKey = isMapView ? 'navUIView' : 'nav3DView';
+        
+        viewModeToggle.dataset.i18nKey = newKey;
+        if (translations[currentLang] && translations[currentLang][newKey]) {
+            viewModeToggle.textContent = translations[currentLang][newKey];
+        }
+    });
+
     // --- CesiumJS Integration ---
 
     // 1. Set Cesium ion token from config.js

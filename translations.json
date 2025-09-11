@@ -34,7 +34,9 @@
     "award1": "受賞1...",
     "navTeaching": "教育活動",
     "teachingTitle": "教育・指導経験",
-    "teaching1": "202X年 - 〇〇 (ティーチングアシスタント)"
+    "teaching1": "202X年 - 〇〇 (ティーチングアシスタント)",
+    "nav3DView": "3D表示",
+    "navUIView": "UI表示"
   },
   "en": {
     "pageTitle": "Hironobu Kasuga's Portfolio",
@@ -71,6 +73,8 @@
     "award1": "Award 1...",
     "navTeaching": "Teaching",
     "teachingTitle": "Teaching & Mentoring",
-    "teaching1": "202X - Teaching Assistant, [Course Name]"
+    "teaching1": "202X - Teaching Assistant, [Course Name]",
+    "nav3DView": "3D View",
+    "navUIView": "UI View"
   }
 }
