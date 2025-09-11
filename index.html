@@ -8,96 +8,104 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <!-- CesiumJS CDN -->
+    <link href="https://cesium.com/downloads/cesiumjs/releases/1.119/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
 </head>
 <body>
 
-    <header>
-        <div class="header-content">
-            <h1 data-i18n-key="headerName">Hironobu Kasuga</h1>
-            <nav class="lang-switcher">
-                <button id="lang-ja">日本語</button>
-                <button id="lang-en">English</button>
+    <div id="cesiumContainer"></div>
+    <div class="ui-container">
+        <header>
+            <div class="header-content">
+                <h1 data-i18n-key="headerName">Hironobu Kasuga</h1>
+                <nav class="lang-switcher">
+                    <button id="lang-ja">日本語</button>
+                    <button id="lang-en">English</button>
+                </nav>
+            </div>
+            <nav class="main-nav">
+                <a href="#profile" data-i18n-key="navProfile">Profile</a>
+                <a href="#education" data-i18n-key="navEducation">Education</a>
+                <a href="#research" data-i18n-key="navResearch">Research</a>
+                <a href="#publications" data-i18n-key="navPublications">Publications</a>
+                <a href="#awards" data-i18n-key="navAwards">Awards</a>
+                <a href="#teaching" data-i18n-key="navTeaching">Teaching</a>
+                <a href="#skills" data-i18n-key="navSkills">Skills</a>
+                <a href="#contact" data-i18n-key="navContact">Contact</a>
             </nav>
-        </div>
-        <nav class="main-nav">
-            <a href="#profile" data-i18n-key="navProfile">Profile</a>
-            <a href="#education" data-i18n-key="navEducation">Education</a>
-            <a href="#research" data-i18n-key="navResearch">Research</a>
-            <a href="#publications" data-i18n-key="navPublications">Publications</a>
-            <a href="#awards" data-i18n-key="navAwards">Awards</a>
-            <a href="#teaching" data-i18n-key="navTeaching">Teaching</a>
-            <a href="#skills" data-i18n-key="navSkills">Skills</a>
-            <a href="#contact" data-i18n-key="navContact">Contact</a>
-        </nav>
-    </header>
+        </header>
 
-    <main>
-        <section id="profile">
-            <h2 data-i18n-key="profileTitle">Profile</h2>
-            <p data-i18n-key="profileContent">I am a graduate student at Keio University, Graduate School of Media and Governance.</p>
-        </section>
+        <main>
+            <section id="profile">
+                <h2 data-i18n-key="profileTitle">Profile</h2>
+                <p data-i18n-key="profileContent">I am a graduate student at Keio University, Graduate School of Media and Governance.</p>
+            </section>
 
-        <section id="education">
-            <h2 data-i18n-key="educationTitle">Education</h2>
-            <ul>
-                <li data-i18n-key="education1">Johoku High School</li>
-                <li data-i18n-key="education2">Cascadia College</li>
-                <li data-i18n-key="education3">Faculty of Policy Management, Keio University</li>
-                <li data-i18n-key="education4">Graduate School of Media and Governance, Keio University </li>
-            </ul>
-        </section>
+            <section id="education">
+                <h2 data-i18n-key="educationTitle">Education</h2>
+                <ul>
+                    <li data-i18n-key="education1">Johoku High School</li>
+                    <li data-i18n-key="education2">Cascadia College</li>
+                    <li data-i18n-key="education3">Faculty of Policy Management, Keio University</li>
+                    <li data-i18n-key="education4">Graduate School of Media and Governance, Keio University </li>
+                </ul>
+            </section>
 
-        <section id="research">
-            <h2 data-i18n-key="researchTitle">Research</h2>
-            <p data-i18n-key="researchContent">Describe your research interests here.</p>
-        </section>
+            <section id="research">
+                <h2 data-i18n-key="researchTitle">Research</h2>
+                <p data-i18n-key="researchContent">Describe your research interests here.</p>
+            </section>
 
-        <section id="publications">
-            <h2 data-i18n-key="publicationsTitle">Publications</h2>
-            <ul>
-                <li data-i18n-key="publication1">Presentation 1...</li>
-                <li data-i18n-key="publication2">Paper 1...</li>
-            </ul>
-        </section>
+            <section id="publications">
+                <h2 data-i18n-key="publicationsTitle">Publications</h2>
+                <ul>
+                    <li data-i18n-key="publication1">Presentation 1...</li>
+                    <li data-i18n-key="publication2">Paper 1...</li>
+                </ul>
+            </section>
 
-        <section id="awards">
-            <h2 data-i18n-key="awardsTitle">Awards</h2>
-            <ul>
-                <li data-i18n-key="award1">Award 1...</li>
-            </ul>
-        </section>
+            <section id="awards">
+                <h2 data-i18n-key="awardsTitle">Awards</h2>
+                <ul>
+                    <li data-i18n-key="award1">Award 1...</li>
+                </ul>
+            </section>
 
-        <section id="teaching">
-            <h2 data-i18n-key="teachingTitle">Teaching & Mentoring</h2>
-            <ul>
-                <li data-i18n-key="teaching1">202X - Teaching Assistant, [Course Name]</li>
-            </ul>
-        </section>
+            <section id="teaching">
+                <h2 data-i18n-key="teachingTitle">Teaching & Mentoring</h2>
+                <ul>
+                    <li data-i18n-key="teaching1">202X - Teaching Assistant, [Course Name]</li>
+                </ul>
+            </section>
 
-        <section id="skills">
-            <h2 data-i18n-key="skillsTitle">Skills</h2>
-            <ul>
-                <li data-i18n-key="skillsContent1">Geographic Information Systems (GIS)</li>
-                <li data-i18n-key="skillsContent2">Urban Sensing</li>
-                <li data-i18n-key="skillsContent3">Data Analysis</li>
-                <li data-i18n-key="skillsContent4">Data Visualization</li>
-                <li data-i18n-key="skillsContent5">Library Reference</li>
-                <li data-i18n-key="skillsContent6">English</li>
-            </ul>
-        </section>
+            <section id="skills">
+                <h2 data-i18n-key="skillsTitle">Skills</h2>
+                <ul>
+                    <li data-i18n-key="skillsContent1">Geographic Information Systems (GIS)</li>
+                    <li data-i18n-key="skillsContent2">Urban Sensing</li>
+                    <li data-i18n-key="skillsContent3">Data Analysis</li>
+                    <li data-i18n-key="skillsContent4">Data Visualization</li>
+                    <li data-i18n-key="skillsContent5">Library Reference</li>
+                    <li data-i18n-key="skillsContent6">English</li>
+                </ul>
+            </section>
 
-        <section id="contact">
-            <h2 data-i18n-key="contactTitle">Contact</h2>
-            <p data-i18n-key="contactContent">Email: your.email@example.com</p>
-        </section>
-    </main>
+            <section id="contact">
+                <h2 data-i18n-key="contactTitle">Contact</h2>
+                <p data-i18n-key="contactContent">Email: your.email@example.com</p>
+            </section>
+        </main>
 
-    <footer>
-        <div class="footer-content">
-            <p>&copy; 2025 Hironobu Kasuga</p>
-        </div>
-    </footer>
+        <footer>
+            <div class="footer-content">
+                <p>&copy; 2025 Hironobu Kasuga</p>
+            </div>
+        </footer>
+    </div>
 
+    <!-- CesiumJS CDN -->
+    <script src="https://cesium.com/downloads/cesiumjs/releases/1.119/Build/Cesium/Cesium.js"></script>
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
