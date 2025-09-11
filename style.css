@@ -120,6 +120,24 @@ main {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
+.profile-content-wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+}
+
+.profile-text {
+    flex: 1;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--border-color);
+}
+
 section {
     background: var(--section-bg);
     padding: 2rem;
