@@ -46,9 +46,8 @@ document.addEventListener('DOMContentLoaded', () => {
         return; // Stop execution if token is not found
     }
 
-    // 2. Initialize Cesium Viewer
-    const viewer = new Cesium.Viewer('cesiumContainer', {
-        // Hide unnecessary UI elements
+    // 2. Initialize Viewer
+    const viewer = new Cesium.Viewer("cesiumContainer", {
         animation: false,
         baseLayerPicker: false,
         fullscreenButton: false,
@@ -59,52 +58,58 @@ document.addEventListener('DOMContentLoaded', () => {
         selectionIndicator: false,
         timeline: false,
         navigationHelpButton: false,
-        // Start with a dark/empty space
-        imageryProvider: false
     });
 
-    // 3. Load PLATEAU 3D Tileset (Tokyo)
-    const plateauTileset = new Cesium.Cesium3DTileset({
-        url: Cesium.IonResource.fromAssetId(96188) // PLATEAU Tokyo 23 Wards
+    // 3. Load PLATEAU-Terrain
+    viewer.scene.setTerrain(
+      new Cesium.Terrain(
+        Cesium.CesiumTerrainProvider.fromIonAssetId(2488101),
+      ),
+    );
+
+    // 4. Load PLATEAU-Ortho
+    const imageProvider = new Cesium.UrlTemplateImageryProvider({
+      url: 'https://api.plateauview.mlit.go.jp/tiles/plateau-ortho-2023/{z}/{x}/{y}.png',
+      maximumLevel: 19
     });
-    viewer.scene.primitives.add(plateauTileset);
+    viewer.scene.imageryLayers.addImageryProvider(imageProvider);
 
-    // 4. Set Camera to Tokyo Station and Animate
-    plateauTileset.readyPromise.then(() => {
-        // Coordinates for Tokyo Station
-        const longitude = 139.767125;
-        const latitude = 35.681236;
-        const height = 250; // Height above the station
-        const heading = Cesium.Math.toRadians(0.0);
-        const pitch = Cesium.Math.toRadians(-25.0);
+    // 5. Load Shibuya building models and animate camera
+    const shibuyaTilesetUrl = 'https://assets.cms.plateau.reearth.io/assets/2a/090b53-0af1-4dac-9d77-67eddc26bf7a/13113_shibuya-ku_pref_2023_citygml_2_op_bldg_3dtiles_13113_shibuya-ku_lod2/tileset.json';
+    Cesium.Cesium3DTileset.fromUrl(shibuyaTilesetUrl)
+    .then((tileset) => {
+        viewer.scene.primitives.add(tileset);
 
-        const destination = Cesium.Cartesian3.fromDegrees(longitude, latitude, height);
-        
-        // Fly to the location for a smoother transition
+        // --- Camera Animation for Shibuya Station ---
+        const longitude = 139.701; // Shibuya Station longitude
+        const latitude = 35.658;  // Shibuya Station latitude
+        const height = 300;      // Height above the station
+        const pitch = Cesium.Math.toRadians(-30.0);
+        let heading = Cesium.Math.toRadians(0.0);
+
+        const center = Cesium.Cartesian3.fromDegrees(longitude, latitude);
+
+        // Initial flight to the location
         viewer.camera.flyTo({
-            destination: destination,
+            destination: Cesium.Cartesian3.fromDegrees(longitude, latitude, height + 500), // Start a bit further out
             orientation: {
                 heading: heading,
                 pitch: pitch,
                 roll: 0.0
             },
-            duration: 3
+            duration: 4
         });
 
-        // Rotate the camera
-        let currentHeading = heading;
+        // Set up the rotation animation
         viewer.clock.onTick.addEventListener(function(clock) {
-            const center = Cesium.Cartesian3.fromDegrees(longitude, latitude);
-            currentHeading += 0.002; // Rotation speed
-            viewer.camera.lookAt(center, new Cesium.HeadingPitchRange(currentHeading, pitch, 2000.0));
+            heading += 0.002; // Rotation speed
+            viewer.camera.lookAt(center, new Cesium.HeadingPitchRange(heading, pitch, 1500.0)); // 1500m range from center
         });
 
     }).catch(error => {
         console.error(`Error loading tileset: ${error}`);
     });
 
-    // Adjust scene settings for better visuals
-    viewer.scene.globe.show = false; // Hide the default globe
+    // 6. Adjust scene settings
     viewer.scene.backgroundColor = Cesium.Color.BLACK;
-    viewer.scene.screenSpaceCameraController.enableTilt = false; // Disable tilting the camera with mouse
 });
